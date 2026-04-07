@@ -141,6 +141,9 @@ def calculate_budget(total_budget: int, expenses: str) -> str:
             raw_name = raw_name.strip().lower()
             amount = int(amount_str.strip())
             
+            if amount < 0:
+                return f"Lỗi: Khoản chi '{raw_name}' không được là số âm. Vui lòng nhập số tiền hợp lệ lớn hơn 0."
+            
             # Chuẩn hóa format expenses về các key cố định để giảm lỗi do đặt tên tiếng Việt
             if raw_name in ["vé_máy_bay", "vé máy bay", "flight", "vé"]:
                 name = "flight"
