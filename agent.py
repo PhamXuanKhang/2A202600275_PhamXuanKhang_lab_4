@@ -78,8 +78,6 @@ if __name__ == "__main__":
     print("  Gõ 'quit' / 'exit' / 'q' để thoát")
     print("=" * 60)
 
-    conversation_messages = []
-
     while True:
         try:
             user_input = input("\nBạn: ").strip()

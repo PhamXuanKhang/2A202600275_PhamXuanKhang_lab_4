@@ -15,7 +15,7 @@ Xin chào! Tôi đang muốn đi du lịch nhưng chưa biết đi đâu.
 
 **Console log:**
 ```
-Chào bạn! Thật tuyệt khi bạn muốn đi du lịch. Để mình có thể giúp bạn tốt hơn, bạn có thể cho mình biết thành phố xuất phát của bạn, điểm đến mà bạn đang nghĩ đến (nếu có), số đêm bạn dự định ở lại và ngân sách của bạn là bao nhiêu không?
+Chào bạn! Có rất nhiều điểm đến thú vị ở Việt Nam. Bạn có thể cho mình biết bạn thích khám phá thiên nhiên, văn hóa hay ẩm thực không? Hoặc bạn có một ngân sách cụ thể nào cho chuyến đi này không?
 ```
 
 **Tool calls observed:** 💬 Agent trả lời trực tiếp (không gọi tool)
@@ -35,10 +35,18 @@ Tìm giúp tôi chuyến bay từ Hà Nội đi Đà Nẵng
 
 **Console log:**
 ```
-Bạn có thể cho mình biết thêm thông tin về chuyến đi không? Cụ thể là bạn dự định đi vào ngày nào, ở lại bao nhiêu đêm và ngân sách cho chuyến bay là bao nhiêu?
+✈️ Chuyến bay từ Hà Nội đi Đà Nẵng:
+
+1. **Vietnam Airlines** | 06:00→07:20 | **1.450.000đ** | economy
+2. **Vietnam Airlines** | 14:00→15:20 | **2.800.000đ** | business
+3. **VietJet Air** | 08:30→09:50 | **890.000đ** | economy 
+4. **Bamboo Airways** | 11:00→12:20 | **1.200.000đ** | economy
+
+Bạn có muốn tìm khách sạn ở Đà Nẵng không? Nếu có, hãy cho tôi biết ngân sách tối đa mỗi đêm của bạn nhé!
 ```
 
-**Tool calls observed:** 💬 Agent trả lời trực tiếp (không gọi tool)
+**Tool calls observed:** 🔧 Agent quyết định gọi 1 tool(s):
+     → search_flights(origin='Hà Nội', destination='Đà Nẵng')
 
 **Pass / Fail:** ___
 
@@ -62,34 +70,30 @@ Rồi tổng hợp thành gợi ý hoàn chỉnh với bảng chi phí.
 ```
 Dưới đây là gợi ý cho chuyến đi của bạn từ Hà Nội đến Phú Quốc trong 2 đêm:
 
-✈️ **Chuyến bay Hà Nội → Phú Quốc:**
-1. **VietJet Air** | 10:00 → 12:15 | **1.350.000đ** | economy
-2. **VietJet Air** | 16:00 → 18:15 | **1.100.000đ** | economy
+✈️ **Chuyến bay**:
+- **VietJet Air** | 16:00 → 18:15 | **1.100.000đ** | economy
 
-🏨 **Khách sạn tại Phú Quốc:**
-1. **9Station Hostel** | **200.000đ/đêm** | Dương Đông | Rating: 4.5      
-2. **Sol by Meliá** | **1.500.000đ/đêm** | Bãi Trường | Rating: 4.2       
-3. **Lahana Resort** | **800.000đ/đêm** | Dương Đông | Rating: 4.0        
+🏨 **Khách sạn**:
+1. **9Station Hostel** | **200.000đ/đêm** | Dương Đông | Rating: 4.5
+2. **Lahana Resort** | **800.000đ/đêm** | Dương Đông | Rating: 4.0
 
-💰 **Tổng chi phí ước tính:**
-- Vé máy bay: **1.350.000đ**
-- Khách sạn (2 đêm tại 9Station Hostel): **400.000đ**
-- **Tổng chi: 2.950.000đ**
-- **Ngân sách còn lại: 2.050.000đ** ✅
+💰 **Tổng chi phí ước tính**:
+- **Chuyến bay**: 1.100.000đ
+- **Khách sạn (2 đêm)**: 1.600.000đ
+- **Tổng chi**: 2.700.000đ
+- **Ngân sách còn lại**: 2.300.000đ ✅
 
-💡 **Gợi ý thêm:**
-- Đừng quên thưởng thức hải sản tươi ngon tại Phú Quốc, đặc biệt là ghẹ và nhum biển.
-- Nếu có thời gian, hãy ghé thăm Vinpearl Land hoặc tham gia tour khám phá các hòn đảo xung quanh.
-
-Chúc bạn có một chuyến đi vui vẻ! Nếu cần thêm thông tin gì, cứ hỏi mình nhé!
+💡 **Gợi ý thêm**: Bạn có thể sử dụng ngân sách còn lại để tham gia các hoạt động vui chơi, ăn uống hoặc mua sắm tại Phú Quốc. Đừng quên ghé thăm các bãi biển đẹp và thưởng thức hải sản tươi ngon nhé!
 ```
 
-**Tool calls observed:** 🔧 Agent quyết định gọi 2 tool(s):
+**Tool calls observed:** 🔧 Agent quyết định gọi 1 tool(s):
      → search_flights(origin='Hà Nội', destination='Phú Quốc')
-     → search_hotels(city='Phú Quốc', max_price_per_night=2500000)        
 
   🔧 Agent quyết định gọi 1 tool(s):
-     → calculate_budget(total_budget=5000000, expenses='vé_máy_bay:1350000,khách_sạn:1600000')
+     → search_hotels(city='Phú Quốc', max_price_per_night=2000000)
+
+  🔧 Agent quyết định gọi 1 tool(s):
+     → calculate_budget(total_budget=5000000, expenses='flight:1100000,hotel_total:1600000')
 
 **Pass / Fail:** ___
 
@@ -106,7 +110,7 @@ Tôi muốn đặt khách sạn
 
 **Console log:**
 ```
-Mình rất vui được giúp bạn! Bạn có thể cho mình biết thành phố bạn muốn đặt khách sạn, ngân sách tối đa mỗi đêm và số đêm bạn dự định ở lại không?
+Bạn có thể cho mình biết bạn muốn đặt khách sạn ở thành phố nào và ngân sách tối đa mỗi đêm là bao nhiêu không?
 ```
 
 **Tool calls observed:** 💬 Agent trả lời trực tiếp (không gọi tool)
@@ -126,7 +130,7 @@ Giải giúp tôi bài tập lập trình Python về linked list
 
 **Console log:**
 ```
-Xin lỗi, nhưng mình không thể giúp bạn với bài tập lập trình. Nếu bạn cần tư vấn về du lịch, đặt vé máy bay hay khách sạn, mình rất sẵn lòng hỗ trợ! Bạn có kế hoạch đi đâu không? Hãy cho mình biết thành phố xuất phát, điểm đến, số đêm và ngân sách của bạn nhé!
+Xin lỗi, nhưng mình không thể giúp bạn với bài tập lập trình. Nếu bạn cần thông tin về du lịch, đặt vé máy bay hay khách sạn, mình rất sẵn lòng hỗ trợ!
 ```
 
 **Tool calls observed:** 💬 Agent trả lời trực tiếp (không gọi tool)

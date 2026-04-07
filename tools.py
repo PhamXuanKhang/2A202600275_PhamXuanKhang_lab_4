@@ -125,8 +125,8 @@ def calculate_budget(total_budget: int, expenses: str) -> str:
 
     Tham số:
     - total_budget: tổng ngân sách ban đầu (VNĐ), ví dụ: 5000000
-    - expenses: chuỗi mô tả các khoản chi, định dạng 'tên:số_tiền,tên:số_tiền'
-      Ví dụ: 'vé_máy_bay:890000,khách_sạn:650000'
+    - expenses: chuỗi mô tả các khoản chi, ưu tiên dùng các key cố định (flight, hotel_total). Định dạng 'tên:số_tiền,tên:số_tiền'
+      Ví dụ: 'flight:890000,hotel_total:650000'
 
     Trả về bảng chi tiết các khoản chi và số tiền còn lại.
     Nếu vượt ngân sách, cảnh báo rõ ràng số tiền thiếu.
@@ -137,8 +137,19 @@ def calculate_budget(total_budget: int, expenses: str) -> str:
             item = item.strip()
             if ":" not in item:
                 continue
-            name, amount_str = item.split(":", 1)
-            items[name.strip()] = int(amount_str.strip())
+            raw_name, amount_str = item.split(":", 1)
+            raw_name = raw_name.strip().lower()
+            amount = int(amount_str.strip())
+            
+            # Chuẩn hóa format expenses về các key cố định để giảm lỗi do đặt tên tiếng Việt
+            if raw_name in ["vé_máy_bay", "vé máy bay", "flight", "vé"]:
+                name = "flight"
+            elif raw_name in ["khách_sạn", "khách sạn", "hotel", "hotel_cost", "hotel_total"]:
+                name = "hotel_total"
+            else:
+                name = raw_name
+                
+            items[name] = items.get(name, 0) + amount
     except Exception as e:
         return f"Lỗi format expenses: {e}. Dùng định dạng 'tên:số_tiền,tên:số_tiền'."
     
